@@ -1,12 +1,24 @@
 import { Link, NavLink } from "react-router-dom";
 import imgdefuld from "../assets/user.png"
+import { useContext } from "react";
+import { AuthContext } from "../Provirdes/Authprovider";
 
 const Navbar = () => {
+  const {user, logOut} = useContext(AuthContext);
+
+  const handleSingOut = ()=>{
+          logOut()
+          .then()
+          .catch()
+  }
+
+  
   
     const NavLinks = <>
     <li><NavLink to='/'>Home</NavLink></li>
     <li><NavLink to='/about'>About</NavLink></li>
     <li><NavLink to='/career'>Career</NavLink></li>
+    <li><NavLink to='/login'>Login</NavLink></li>
    </>
 
     return (
@@ -30,19 +42,34 @@ const Navbar = () => {
         <div className="navbar-end">
         <div className="dropdown">
      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-       <div className="w-10 rounded-full">
+       <div className="w-10 rounded-full flex">
          <img  src={imgdefuld} />
        </div>
-     </div>
-    
-   </div>
-
-          <Link>
-          <button className="btn">Login</button>
+    </div>
+    </div>
+          {
+            user?
+             <button onClick={handleSingOut}  className="btn">Sign out</button>
+            :
+            <Link to='/login'>
+            <button className="btn">Login</button>
           </Link>
-        </div>
+          }
+         
+      
+
+      </div>
       </div>
     );
 };
 
 export default Navbar;
+
+// {
+//   user ? 
+//        <button onClick={handleSingOut} className="btn">Sign out</button>
+//      :
+//       <Link to='/login'>
+//       <button className="btn">Login</button>
+//        </Link>
+//  }
